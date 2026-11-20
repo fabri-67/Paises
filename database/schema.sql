@@ -1,0 +1,23 @@
+CREATE DATABASE IF NOT EXISTS Paises
+  CHARACTER SET utf8mb4
+  COLLATE utf8mb4_unicode_ci;
+
+USE Paises;
+
+CREATE TABLE IF NOT EXISTS paises (
+  id INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  nombre VARCHAR(100) NOT NULL,
+  PRIMARY KEY (id)
+);
+
+CREATE TABLE IF NOT EXISTS provincias (
+  id INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  nombre VARCHAR(100) NOT NULL,
+  pais_id INT UNSIGNED NOT NULL,
+  PRIMARY KEY (id),
+  INDEX idx_provincias_pais_id (pais_id),
+  CONSTRAINT fk_provincias_paises
+    FOREIGN KEY (pais_id) REFERENCES paises (id)
+    ON UPDATE CASCADE
+    ON DELETE RESTRICT
+);
